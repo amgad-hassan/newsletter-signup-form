@@ -1,0 +1,7 @@
+newsletter_signup.add_newsletter :
+  path: '/newsletter/add'
+  defaults:
+    _title: 'Newsletter sign-up form'
+    _form: '\Drupal\newsletter_signup\Form\SignupForm'
+  requirements:
+    _access: 'TRUE'
