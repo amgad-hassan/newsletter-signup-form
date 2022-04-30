@@ -1,0 +1,5 @@
+name: Newsletter sign-up form
+type: module
+description: A custom module that exposes a Drupal 8/9 block containing a Newsletter sign-up form
+package: Custom
+core_version_requirement: ^8 || ^9
