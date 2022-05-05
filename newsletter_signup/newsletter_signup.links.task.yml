@@ -1,0 +1,22 @@
+# Define the 'local' links for the module
+
+subscription.settings_tab:
+  route_name: newsletter_signup.subscription_settings
+  title: Settings
+  base_route: newsletter_signup.subscription_settings
+
+subscription.view:
+  route_name: entity.newsletter_signup_subscription.canonical
+  base_route: entity.newsletter_signup_subscription.canonical
+  title: View
+
+subscription.page_edit:
+  route_name: entity.newsletter_signup_subscription.edit_form
+  base_route: entity.newsletter_signup_subscription.canonical
+  title: Edit
+
+subscription.delete_confirm:
+  route_name:  entity.newsletter_signup_subscription.delete_form
+  base_route:  entity.newsletter_signup_subscription.canonical
+  title: Delete
+  weight: 10

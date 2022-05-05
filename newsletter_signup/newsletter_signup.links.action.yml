@@ -1,0 +1,11 @@
+# All action links for this module
+
+newsletter_signup.subscription_add:
+  # Which route will be called by the link
+  route_name: newsletter_signup.subscription_add
+  title: 'Add Subscription'
+
+  # Where will the link appear, defined by route name.
+  appears_on:
+    - entity.newsletter_signup_subscription.collection
+    - entity.newsletter_signup_subscription.canonical

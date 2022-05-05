@@ -117,5 +117,27 @@ class SignupForm extends FormBase
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
+    
+    $first_name = $form_state->getValue('first_name');
+    $last_name =  $form_state->getValue('last_name');
+    $email=  $form_state->getValue('email');
+    $country=  $form_state->getValue('country');
+    $terms =  $form_state->getValue('terms'); 
+    try {
+      $subscription =  \Drupal::entityTypeManager()->getStorage('newsletter_signup_subscription')
+        ->create([
+          'first_name' => $first_name,
+          'last_name' => $last_name,
+          'email' => $email,
+          'country' => $country,
+          'terms' => $terms, 
+        ]);
+      $subscription->save();
+      \Drupal::messenger()->addMessage($this->t('Thank you for submitting to the newsletter'));
+  
+    } catch (\Exception $ex) {
+      \Drupal::logger('newsletter_signup')->error($ex->getMessage());
+    }
   }
 }
+

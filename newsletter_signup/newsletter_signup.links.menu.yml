@@ -1,0 +1,13 @@
+# Define the menu links for this module
+
+entity.newsletter_signup_subscription.collection:
+  title: 'subscriptions Listing'
+  route_name: entity.newsletter_signup_subscription.collection
+  description: 'List subscriptions'
+  parent: system.admin_structure
+  weight: 10
+newsletter_signup_subscription.admin.structure.settings:
+  title: subscriptions Settings
+  description: 'Configure Subscription entity'
+  route_name:  newsletter_signup.subscription_settings
+  parent: system.admin_structure

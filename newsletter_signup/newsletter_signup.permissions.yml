@@ -1,0 +1,11 @@
+view subscription entity:
+  title: 'View subscription entity'
+add subscription entity:
+  title: 'Add subscription entity'
+edit subscription entity:
+  title: 'Edit subscription Entity'
+delete subscription entity:
+  title: 'Delete subscription entity'
+administer subscription entity:
+  title: 'Administer subscription entity'
+  restrict access: TRUE

@@ -1,3 +1,61 @@
+# This file brings everything together. Very nifty!
+
+# Route name can be used in several places; e.g. links, redirects, and local
+# actions.
+entity.newsletter_signup_subscription.canonical:
+  path: '/newsletter_signup_subscription/{newsletter_signup_subscription}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the subscription entity
+    _entity_view: 'newsletter_signup_subscription'
+    _title: 'Subscription Content'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'newsletter_signup_subscription.view'
+
+entity.newsletter_signup_subscription.collection:
+  path: '/newsletter_signup_subscription/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the subscription entity.
+    _entity_list: 'newsletter_signup_subscription'
+    _title: 'subscription List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'administer subscription entity'
+
+newsletter_signup.subscription_add:
+  path: '/newsletter_signup_subscription/add'
+  defaults:
+  # Calls the form.add controller, defined in the subscription entity.
+    _entity_form: newsletter_signup_subscription.add
+    _title: 'Add subscription'
+  requirements:
+    _entity_create_access: 'newsletter_signup_subscription'
+
+entity.newsletter_signup_subscription.edit_form:
+  path: '/newsletter_signup_subscription/{newsletter_signup_subscription}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the subscription entity.
+    _entity_form: newsletter_signup_subscription.edit
+    _title: 'Edit subscription'
+  requirements:
+    _entity_access: 'newsletter_signup_subscription.edit'
+
+entity.newsletter_signup_subscription.delete_form:
+  path: '/subscription/{newsletter_signup_subscription}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the subscription entity.
+    _entity_form: newsletter_signup_subscription.delete
+    _title: 'Delete Contact'
+  requirements:
+    _entity_access: 'newsletter_signup_subscription.delete'
+
+newsletter_signup.subscription_settings:
+  path: 'admin/structure/newsletter_signup_subscription_settings'
+  defaults:
+    _form: '\Drupal\newsletter_signup\Form\SubscriptionSettingsForm'
+    _title: 'subscription Settings'
+  requirements:
+    _permission: 'administer subscription entity'
 newsletter_signup.add_newsletter :
   path: '/newsletter/add'
   defaults:
