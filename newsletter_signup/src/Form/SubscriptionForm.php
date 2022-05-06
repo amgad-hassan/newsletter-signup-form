@@ -17,16 +17,16 @@ class SubscriptionForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\newsletter_signup\Entity\Subscription */
+    /** @var \Drupal\newsletter_signup\Entity\Subscription $entity */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
-    $form['langcode'] = array(
+    $form['langcode'] = [
       '#title' => $this->t('Language'),
       '#type' => 'language_select',
       '#default_value' => $entity->getUntranslated()->language()->getId(),
       '#languages' => Language::STATE_ALL,
-    );
+    ];
     return $form;
   }
 
@@ -40,7 +40,8 @@ class SubscriptionForm extends ContentEntityForm {
     if ($status == SAVED_UPDATED) {
       $this->messenger()
         ->addMessage($this->t('The subscription %feed has been updated.', ['%feed' => $entity->toLink()->toString()]));
-    } else {
+    }
+    else {
       $this->messenger()
         ->addMessage($this->t('The subscription %feed has been added.', ['%feed' => $entity->toLink()->toString()]));
     }
@@ -48,6 +49,5 @@ class SubscriptionForm extends ContentEntityForm {
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));
     return $status;
   }
-}
 
-?>
+}

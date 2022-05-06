@@ -22,9 +22,9 @@ class SubscriptionListBuilder extends EntityListBuilder {
    */
   public function render() {
     $build['description'] = [
-      '#markup' => $this->t('These subscriptions are fieldable entities. You can manage the fields on the <a href="@adminlink">subscriptions admin page</a>.', array(
+      '#markup' => $this->t('These subscriptions are fieldable entities. You can manage the fields on the <a href="@adminlink">subscriptions admin page</a>.', [
         '@adminlink' => Url::fromRoute('newsletter_signup.subscription_settings', [], ['absolute' => 'true'])->toString(),
-      )),
+      ]),
     ];
 
     $build += parent::render();
@@ -52,7 +52,7 @@ class SubscriptionListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\newsletter_signup\Entity\subscription */
+    /** @var \Drupal\newsletter_signup\Entity\subscription $entity */
     $row['id'] = $entity->id();
     $row['first_name'] = $entity->first_name->value;
     $row['last_name'] = $entity->last_name->value;
@@ -62,4 +62,3 @@ class SubscriptionListBuilder extends EntityListBuilder {
   }
 
 }
-?>

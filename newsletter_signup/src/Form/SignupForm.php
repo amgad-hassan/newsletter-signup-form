@@ -5,12 +5,10 @@ namespace Drupal\newsletter_signup\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
-
 /**
  * Provides a sign-up form.
  */
-class SignupForm extends FormBase
-{
+class SignupForm extends FormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -22,8 +20,7 @@ class SignupForm extends FormBase
    * @return string
    *   The unique string identifying the form.
    */
-  public function getFormId()
-  {
+  public function getFormId() {
     return 'newsletter_signup_form';
   }
 
@@ -38,8 +35,7 @@ class SignupForm extends FormBase
    * @return array
    *   The form structure.
    */
-  public function buildForm(array $form, FormStateInterface $form_state)
-  {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
     $form['first_name'] = [
       '#type' => 'textfield',
@@ -82,28 +78,25 @@ class SignupForm extends FormBase
       '#title' => $this->t('I agree to the terms and conditions of the newsletter'),
       '#required' => TRUE,
     ];
-    
+
     $form['actions']['#type'] = 'actions';
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#button_type' => 'primary',
-      '#default_value' => $this->t('Submit') ,
+      '#default_value' => $this->t('Submit'),
     ];
-
 
     return $form;
   }
 
   /**
-   * Validate the title and the checkbox of the form
-   * 
+   * Validate the title and the checkbox of the form.
+   *
    * @param array $form
    * @param \Drupal\Core\Form\FormStateInterface $form_state
-   * 
    */
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
   }
 
@@ -115,29 +108,29 @@ class SignupForm extends FormBase
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
-    
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
     $first_name = $form_state->getValue('first_name');
-    $last_name =  $form_state->getValue('last_name');
-    $email=  $form_state->getValue('email');
-    $country=  $form_state->getValue('country');
-    $terms =  $form_state->getValue('terms'); 
+    $last_name = $form_state->getValue('last_name');
+    $email = $form_state->getValue('email');
+    $country = $form_state->getValue('country');
+    $terms = $form_state->getValue('terms');
     try {
-      $subscription =  \Drupal::entityTypeManager()->getStorage('newsletter_signup_subscription')
+      $subscription = \Drupal::entityTypeManager()->getStorage('newsletter_signup_subscription')
         ->create([
           'first_name' => $first_name,
           'last_name' => $last_name,
           'email' => $email,
           'country' => $country,
-          'terms' => $terms, 
+          'terms' => $terms,
         ]);
       $subscription->save();
       \Drupal::messenger()->addMessage($this->t('Thank you for submitting to the newsletter'));
-  
-    } catch (\Exception $ex) {
+
+    }
+    catch (\Exception $ex) {
       \Drupal::logger('newsletter_signup')->error($ex->getMessage());
     }
   }
-}
 
+}

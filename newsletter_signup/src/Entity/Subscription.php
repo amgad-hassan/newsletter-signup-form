@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\newsletter_signup\Entity\Subscription.
- */
-
 namespace Drupal\newsletter_signup\Entity;
 
 /* use Drupal\Core\Entity\ContentEntityBase;
@@ -135,11 +130,10 @@ use Drupal\user\UserInterface;
  * the rights privileges can influence the presentation (view, edit) of each
  * field.
  */
+class Subscription extends ContentEntityBase implements SubscriptionInterface {
 
-class Subscription extends ContentEntityBase implements SubscriptionInterface
-{
-
-  use EntityChangedTrait; // Implements methods defined by EntityChangedInterface.
+  // Implements methods defined by EntityChangedInterface.
+  use EntityChangedTrait;
 
   /**
    * {@inheritdoc}
@@ -147,43 +141,38 @@ class Subscription extends ContentEntityBase implements SubscriptionInterface
    * When a new entity instance is added, set the user_id entity reference to
    * the current user as the creator of the instance.
    */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values)
-  {
+  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'user_id' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCreatedTime()
-  {
+  public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOwner()
-  {
+  public function getOwner() {
     return $this->get('user_id')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOwnerId()
-  {
+  public function getOwnerId() {
     return $this->get('user_id')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setOwnerId($uid)
-  {
+  public function setOwnerId($uid) {
     $this->set('user_id', $uid);
     return $this;
   }
@@ -191,8 +180,7 @@ class Subscription extends ContentEntityBase implements SubscriptionInterface
   /**
    * {@inheritdoc}
    */
-  public function setOwner(UserInterface $account)
-  {
+  public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
   }
@@ -208,13 +196,10 @@ class Subscription extends ContentEntityBase implements SubscriptionInterface
    * in the GUI. The behaviour of the widgets used can be determined here.
    */
 
-
-
   /**
    * Determines the schema for the base_table.
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type)
-  {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     // Standard field, used as unique if primary index.
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
@@ -226,137 +211,131 @@ class Subscription extends ContentEntityBase implements SubscriptionInterface
       ->setLabel(t('UUID'))
       ->setDescription(t('The UUID of the subscriber entity.'))
       ->setReadOnly(TRUE);
-     
-      // first name field for the subscriber.
-      $fields['first_name'] = BaseFieldDefinition::create('string')
+
+    // First name field for the subscriber.
+    $fields['first_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t("The subscriber's first name"))
       ->setDescription(t('The first name of the subscriber.'))
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -6,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);  
+      ->setDisplayConfigurable('view', TRUE);
 
-
-      $fields['last_name'] = BaseFieldDefinition::create('string')
+    $fields['last_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t("The subscriber's last name"))
       ->setDescription(t('The last name of the subscriber.'))
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -6,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);  
+      ->setDisplayConfigurable('view', TRUE);
 
-
-     // email field for the subscriber.
-       $fields['email'] = BaseFieldDefinition::create('string')
+    // Email field for the subscriber.
+    $fields['email'] = BaseFieldDefinition::create('string')
       ->setLabel(t("The subscriber's email"))
       ->setDescription(t('The email of the subscriber.'))
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -6,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);  
+      ->setDisplayConfigurable('view', TRUE);
 
-
-      // country field for the subscriber.
-     $fields['country'] = BaseFieldDefinition::create('string')
+    // Country field for the subscriber.
+    $fields['country'] = BaseFieldDefinition::create('string')
       ->setLabel(t("The subscriber's country"))
       ->setDescription(t('The country of the subscriber.'))
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -6,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);  
+      ->setDisplayConfigurable('view', TRUE);
 
-
-
-
-    // first name field for the subscriber.
-   /*  $fields['first_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t("The subscriber's first name"))
-      ->setDescription(t('The first name of the subscriber.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      ));
- */
-    // last name field for the subscriber.
+    // First name field for the subscriber.
+    /*  $fields['first_name'] = BaseFieldDefinition::create('string')
+    ->setLabel(t("The subscriber's first name"))
+    ->setDescription(t('The first name of the subscriber.'))
+    ->setSettings(array(
+    'default_value' => '',
+    'max_length' => 255,
+    'text_processing' => 0,
+    ));
+     */
+    // Last name field for the subscriber.
     /* $fields['last_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t("The subscriber's last name"))
-      ->setDescription(t('The last name of the subscriber.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      )); */
+    ->setLabel(t("The subscriber's last name"))
+    ->setDescription(t('The last name of the subscriber.'))
+    ->setSettings(array(
+    'default_value' => '',
+    'max_length' => 255,
+    'text_processing' => 0,
+    )); */
 
-    // email field for the subscriber.
-   /*  $fields['email'] = BaseFieldDefinition::create('string')
-      ->setLabel(t("The subscriber's email"))
-      ->setDescription(t('The email of the subscriber.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      )); */
+    // Email field for the subscriber.
+    /*  $fields['email'] = BaseFieldDefinition::create('string')
+    ->setLabel(t("The subscriber's email"))
+    ->setDescription(t('The email of the subscriber.'))
+    ->setSettings(array(
+    'default_value' => '',
+    'max_length' => 255,
+    'text_processing' => 0,
+    )); */
 
-    // country field for the subscriber.
-   /*  $fields['country'] = BaseFieldDefinition::create('string')
-      ->setLabel(t("The subscriber's country"))
-      ->setDescription(t('The country of the subscriber.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      )); */
+    // Country field for the subscriber.
+    /*  $fields['country'] = BaseFieldDefinition::create('string')
+    ->setLabel(t("The subscriber's country"))
+    ->setDescription(t('The country of the subscriber.'))
+    ->setSettings(array(
+    'default_value' => '',
+    'max_length' => 255,
+    'text_processing' => 0,
+    )); */
 
-    // terms field for the subscriber.
+    // Terms field for the subscriber.
     $fields['terms'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('terms'))
       ->setDescription(t('A boolean indicating whether the subscriber is accepted the terms.'))
@@ -383,4 +362,5 @@ class Subscription extends ContentEntityBase implements SubscriptionInterface
 
     return $fields;
   }
+
 }

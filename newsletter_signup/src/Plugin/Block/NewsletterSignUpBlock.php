@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\newsletter_signup\Plugin\Block\NewsletterSignUpBlock.
- */
-
 namespace Drupal\newsletter_signup\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-
 
 /**
  * Provides a 'Newsletter Sign-up Form' Block.
@@ -19,17 +13,16 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("Newsletter Sign-up"),
  * )
  */
-class NewsletterSignUpBlock extends BlockBase
-{
+class NewsletterSignUpBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
    */
-  public function build()
-  {
+  public function build() {
     $form = \Drupal::formBuilder()->getForm('\Drupal\newsletter_signup\Form\SignupForm');
 
     return $form;
-    
+
   }
+
 }

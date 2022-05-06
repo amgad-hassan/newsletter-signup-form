@@ -45,4 +45,3 @@ class SubscriptionAccessControlHandler extends EntityAccessControlHandler {
   }
 
 }
-?>
